@@ -1,0 +1,121 @@
+<div class="container">
+  
+
+<div *ngIf="cartitems.length===0" class="alert alert-info text-center"><h3>Your cart is empty</h3></div>
+
+<div *ngIf="cartitems.length>0" class="col-sm-12 col-md-10 col-md-offset-1">
+  <table class="table table-hover">
+  <thead>
+  <tr>
+  <th>Product</th>
+  <!-- <th>Authorized</th> -->
+  <th colspan="3" class="text-center">Quantity</th>
+  <th class="text-center">Price</th>
+  <th class="text-center">Total</th>
+  <th> </th>
+  </tr >
+  </thead>
+  <tbody>
+  <tr *ngFor="let i of cartitems">
+  <td class="col-sm-8 col-md-6">
+  <div class="media">
+  <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{i.image}}" style="width: 72px; height: 72px;"> </a>
+  <div class="media-body">
+  <h4 class="media-heading"><a href="#">{{i.title}}</a></h4>
+  <h5 class="media-heading"> by <a href="#">{{i.category}}</a></h5>
+  <span>Status: </span><span class="text-warning"><strong>In Stock</strong></span>
+  </div>
+  </div></td>
+  <!-- <td class="col-md-1 text-left"><strong class="label label-danger">None</strong></td> -->
+  <td  class="col-sm-1 col-md-1" style="text-align: center"><button (click)="decrement(i.id)" class="btn btn-primary"><i class="fa fa-minus"></i></button></td>
+  <td class="col-sm-1 col-md-1" style="text-align: center">
+    
+  <!-- <input type="text" disabled class="form-control" min="0" [(ngModel)]="count"  style="width: 50px;" value="{{i.count}}"> -->
+  <h4 style="width: 50px; height: 40px ; border-radius: 10px; color: red; padding-top: 7px; background-color: #ffffff;">{{i.count}}</h4>
+  </td>
+  <td  class="col-sm-1 col-md-1" style="text-align: center"><button (click)="increment(i.id)" class="btn btn-primary"><i class="fa fa-plus"></i></button></td>
+  <td class="col-sm-1 col-md-1 text-center"><strong>${{i.price}}</strong></td>
+  <td class="col-sm-1 col-md-1 text-center"><strong>${{i.price*i.count | number}}</strong></td>
+  <td class="col-sm-1 col-md-1">
+  <a type="button" class="btn btn-danger" (click)="remove(i)" routerLink='/cart' >
+    <a ></a>
+  <span class="fa fa-remove"></span>  
+  </a></td>
+  </tr>
+
+
+
+
+  <!-- <tr>
+  <td>   </td>
+  <td>   </td>
+  <td>   </td>
+  <td><h3>Total</h3></td>
+  <td class="text-right"><h3><strong>$9.999.99</strong></h3></td>
+  </tr> -->
+
+
+  </tbody>
+  </table>
+
+
+
+
+
+  <div class="w-50 mx-auto justify-content-center my-5">
+    <div class="col">
+      <h2 class="text-center">CheckOut</h2>
+    <form action="/action_page.php" class="" [formGroup]="ReactiveForm" (ngSubmit)="ReactiveFormSubmit()">
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" id="address" placeholder="Enter name" name="address" formControlName="address" >
+            <div class="alert-danger p-2"
+            *ngIf="registerFormControl.address.touched && !registerFormControl.address.valid" >
+            <div *ngIf="registerFormControl.address.errors.required" style="color: red;">address is required.</div> 
+            <div *ngIf="registerFormControl.address.errors.minlength" style="color: red;">Min Length 3.</div>  
+            </div>
+        </div>
+          
+    
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" formControlName="email" >
+            <div class="alert-danger p-2"
+            *ngIf="registerFormControl.email.touched && !registerFormControl.email.valid" >
+            <div *ngIf="registerFormControl.email.errors.required" style="color: red;">Email is required.</div> 
+            <div *ngIf="registerFormControl.email.errors.pattern" style="color: red;">Not Follow Email Pattern.</div>  
+            </div>
+          
+         
+        </div>
+      <div class="form-group">
+        <label for="pwd">Phone:</label>
+        <input type="number" class="form-control" id="phone" placeholder="Enter password" name="phone" formControlName="phone" >
+        <div class="alert-danger p-2"
+            *ngIf="registerFormControl.phone.touched && !registerFormControl.phone.valid" >
+            <div *ngIf="registerFormControl.phone.errors.required" style="color: red;">Phone is required.</div> 
+           
+            <div *ngIf="registerFormControl.phone.errors.minlength" style="color: red;">Min Length 10.</div>   
+        </div>
+      </div>
+      
+      
+      <button type="submit" class="btn btn-primary" (click)="checkOut()"    [disabled]="!ReactiveForm.valid">CheckOut</button>
+      
+    
+    </form>
+    </div>
+    </div>
+    </div>
+  </div>
+
+
+
+
+
+
+<div class="p"></div>
+
+
+
+<app-footer></app-footer>
